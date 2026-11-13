@@ -1,0 +1,179 @@
+:root {
+    --imi-navy: #0a2540;
+    --imi-blue: #1e40af;
+    --imi-gold: #d4af37;
+    --imi-gold-hover: #b89628;
+    --imi-light: #f8fafc;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--imi-light);
+    color: #1e293b;
+    scroll-behavior: smooth;
+}
+
+.top-bar {
+    background-color: var(--imi-navy);
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--imi-gold);
+}
+
+.navbar-imi {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(10, 37, 64, 0.08);
+}
+
+.brand-logo-box {
+    width: 48px;
+    height: 48px;
+    background: var(--imi-navy);
+    color: var(--imi-gold);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 2px solid var(--imi-gold);
+}
+
+.hero-banner {
+    background: linear-gradient(135deg, rgba(10, 37, 64, 0.92) 0%, rgba(30, 64, 175, 0.85) 100%),
+                url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    color: #ffffff;
+    padding: 95px 0 115px;
+    position: relative;
+}
+
+.btn-gold {
+    background-color: var(--imi-gold);
+    color: var(--imi-navy);
+    font-weight: 700;
+    border: none;
+    transition: all 0.25s ease;
+}
+
+.btn-gold:hover {
+    background-color: var(--imi-gold-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(10, 37, 64, 0.07);
+    border-bottom: 4px solid var(--imi-gold);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-number {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--imi-navy);
+    line-height: 1.1;
+}
+
+.section-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(212, 175, 55, 0.18);
+    color: #9a7b1c;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.direction-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.direction-card:hover {
+    border-color: var(--imi-gold);
+    box-shadow: 0 12px 25px rgba(10, 37, 64, 0.08);
+    transform: translateY(-5px);
+}
+
+.direction-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: rgba(10, 37, 64, 0.06);
+    color: var(--imi-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+}
+
+.news-card {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(10, 37, 64, 0.12);
+}
+
+.news-img {
+    height: 210px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.teacher-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+    border-top: 3px solid var(--imi-navy);
+    transition: 0.3s;
+    height: 100%;
+}
+
+.teacher-card:hover {
+    transform: translateY(-5px);
+    border-top-color: var(--imi-gold);
+}
+
+.teacher-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--imi-gold);
+    padding: 3px;
+    margin-bottom: 15px;
+}
+
+footer {
+    background-color: var(--imi-navy);
+    color: #cbd5e1;
+    padding: 60px 0 25px;
+    border-top: 4px solid var(--imi-gold);
+}

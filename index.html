@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qo'shko'pir tumani ixtisoslashtirilgan maktab-internati | Rasmiy veb-sayti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Yuqori Axborot Paneli (Urganch IMI / PIIMA uslubida) -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex align-items-center flex-wrap gap-3">
+                <span><i class="fas fa-map-marker-alt text-warning me-1"></i> <span id="top-address"></span></span>
+                <span class="d-none d-md-inline">|</span>
+                <span><i class="fas fa-phone-alt text-warning me-1"></i> <span id="top-phone"></span></span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="#" id="top-telegram" target="_blank" class="text-light text-decoration-none"><i class="fab fa-telegram text-info me-1"></i>Rasmiy kanal</a>
+                <span>|</span>
+                <a href="admin.html" class="text-warning text-decoration-none fw-bold">
+                    <i class="fas fa-user-shield me-1"></i> Admin Panel (LTE)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asosiy Navigatsiya -->
+    <nav class="navbar navbar-expand-lg navbar-imi sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+                <div class="brand-logo-box">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <div id="nav-school-name" class="fw-bold fs-5 text-dark lh-1">Qo'shko'pir tumani IMI</div>
+                    <small class="text-muted d-block mt-1" style="font-size: 11px;">Ixtisoslashtirilgan ta'lim muassasalari agentligi</small>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#about">Maktab haqida</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#directions">Yo'nalishlar</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#news">Yangiliklar</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#schedule">Dars jadvali</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#teachers">Pedagoglar</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="#contact">Aloqa</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <button class="btn btn-gold px-4 py-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#applyModal">
+                            <i class="fas fa-paper-plane me-1"></i> Onlayn Qabul
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+        <div class="container text-center">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">
+                <i class="fas fa-star me-1"></i> YANGI O'ZBEKISTON YOSHLARI MASKANI
+            </span>
+            <h1 class="display-5 fw-bold mb-3 mx-auto" style="max-width: 900px;" id="hero-title">
+                Qo'shko'pir tumani ixtisoslashtirilgan maktab-internati
+            </h1>
+            <p class="lead text-light opacity-90 mx-auto mb-4" style="max-width: 720px;">
+                Aniq va tabiiy fanlar, axborot texnologiyalari hamda xorijiy tillarni xalqaro standartlar asosida chuqurlashtirib o'qitishga ixtisoslashgan zamonaviy ta'lim maskani.
+            </p>
+            <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                <button class="btn btn-gold btn-lg px-4 rounded-pill" data-bs-toggle="modal" data-bs-target="#applyModal">
+                    <i class="fas fa-user-plus me-2"></i>Hujjat topshirish (2026/2027)
+                </button>
+                <a href="#about" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                    <i class="fas fa-info-circle me-2"></i>Maktab-internat haqida
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Asosiy Ko'rsatkichlar (Statistika) -->
+    <section class="container" style="margin-top: -55px; position: relative; z-index: 10;">
+        <div class="row g-3 g-md-4">
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <i class="fas fa-user-graduate fa-2x text-warning mb-2"></i>
+                    <div class="stat-number" id="stat-students">0</div>
+                    <div class="text-muted fw-semibold small mt-1">Jami o'quvchilar soni</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <i class="fas fa-chalkboard-teacher fa-2x text-primary mb-2"></i>
+                    <div class="stat-number" id="stat-teachers">0</div>
+                    <div class="text-muted fw-semibold small mt-1">Yuqori malakali ustozlar</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <i class="fas fa-trophy fa-2x text-success mb-2"></i>
+                    <div class="stat-number" id="stat-olympiad">0</div>
+                    <div class="text-muted fw-semibold small mt-1">Fan olimpiadasi g'oliblari</div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <i class="fas fa-university fa-2x text-danger mb-2"></i>
+                    <div class="stat-number" id="stat-grant">0%</div>
+                    <div class="text-muted fw-semibold small mt-1">OTMga kirish ko'rsatkichi</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maktab haqida va Yo'nalishlar -->
+    <section class="container py-5 mt-3" id="about">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-badge">Biz haqimizda</span>
+                <h2 class="fw-bold mb-3">Qo'shko'pir tumani IMI — zamonaviy ta'lim va tarbiya uyg'unligi</h2>
+                <p class="text-muted">
+                    Maktab-internatimiz Prezident ta'lim muassasalari agentligi (hozirgi Ixtisoslashtirilgan ta'lim muassasalari agentligi) tizimida tashkil etilgan bo'lib, Xorazm viloyati Qo'shko'pir tumanidagi eng iqtidorli o'quvchilarni saralab olib, ularni zamonaviy STEM dasturlari asosida o'qitadi.
+                </p>
+                <div class="row g-3 my-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-white rounded-3 shadow-sm border-start border-4 border-warning">
+                            <h6 class="fw-bold mb-1"><i class="fas fa-bed text-warning me-2"></i>Zamonaviy Yotoqxona</h6>
+                            <p class="small text-muted mb-0"><span id="info-dorm">250</span> o'rinli barcha qulayliklarga ega shinam yotoqxona va 4 mahal issiq ovqat.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 bg-white rounded-3 shadow-sm border-start border-4 border-primary">
+                            <h6 class="fw-bold mb-1"><i class="fas fa-laptop-code text-primary me-2"></i>SMART Sinfxonalar</h6>
+                            <p class="small text-muted mb-0"><span id="info-rooms">24</span> ta interaktiv doska va laboratoriya bilan jihozlangan o'quv xonalari.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 bg-white rounded-3 border d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3">
+                    <div>
+                        <small class="text-muted d-block">Maktab-internat direktori:</small>
+                        <strong class="fs-6 text-dark" id="info-director"></strong>
+                    </div>
+                    <div>
+                        <small class="text-muted d-block">Fuqarolar qabuli:</small>
+                        <span class="badge bg-primary" id="info-reception"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" id="directions">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="direction-card">
+                            <div class="direction-icon"><i class="fas fa-square-root-alt"></i></div>
+                            <h5 class="fw-bold">Aniq fanlar yo'nalishi</h5>
+                            <p class="small text-muted mb-0">5-11 sinflar uchun Matematika, Fizika va Ingliz tili fanlari chuqurlashtirilgan dastur asosida o'qitiladi.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="direction-card">
+                            <div class="direction-icon"><i class="fas fa-dna"></i></div>
+                            <h5 class="fw-bold">Tabiiy fanlar yo'nalishi</h5>
+                            <p class="small text-muted mb-0">7-11 sinflar uchun Kimyo, Biologiya fanlari hamda amaliy laboratoriya mashg'ulotlari olib boriladi.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="direction-card">
+                            <div class="direction-icon"><i class="fas fa-microchip"></i></div>
+                            <h5 class="fw-bold">IT va Robototexnika</h5>
+                            <p class="small text-muted mb-0">Python, Web-dasturlash, Sun'iy intellekt va Arduino robototexnika to'garaklari doimiy faoliyat yuritadi.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="direction-card">
+                            <div class="direction-icon"><i class="fas fa-globe-americas"></i></div>
+                            <h5 class="fw-bold">IELTS & SAT Tayyorlov</h5>
+                            <p class="small text-muted mb-0">Bitiruvchi sinf o'quvchilarini xalqaro sertifikatlar olish va TOP-1000 universitetlarga tayyorlash markazi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yangiliklar va E'lonlar -->
+    <section class="py-5 bg-white" id="news">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end flex-wrap mb-4">
+                <div>
+                    <span class="section-badge">Matbuot xizmati</span>
+                    <h2 class="fw-bold mb-0">Maktab-internat yangiliklari</h2>
+                </div>
+                <div class="btn-group mt-2 mt-md-0" role="group">
+                    <button type="button" class="btn btn-outline-dark btn-sm active" onclick="filterNews('Barchasi', this)">Barchasi</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="filterNews('Yangiliklar', this)">Yangiliklar</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="filterNews('Yutuqlar', this)">Yutuqlar</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="filterNews('E'lon', this)">E'lonlar</button>
+                </div>
+            </div>
+            <div class="row g-4" id="news-container"></div>
+        </div>
+    </section>
+
+    <!-- Dars jadvali va o'quv jarayoni -->
+    <section class="container py-5" id="schedule">
+        <div class="text-center mb-4">
+            <span class="section-badge">O'quv jarayoni</span>
+            <h2 class="fw-bold">Sinflar va dars jadvallari</h2>
+        </div>
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sinf va yo'nalish</th>
+                            <th>O'quv smenasi</th>
+                            <th>Biriktirilgan xona</th>
+                            <th>Sinf rahbari</th>
+                            <th class="text-end">Jadval</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-container"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- O'qituvchilar jamoasi -->
+    <section class="py-5 bg-white" id="teachers">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-badge">Pedagogik jamoa</span>
+                <h2 class="fw-bold">Bizning faxrli ustozlarimiz</h2>
+                <p class="text-muted mx-auto" style="max-width: 600px;">Maktab-internatimizda xalqaro va milliy sertifikatlarga ega, oliy toifali pedagoglar dars beradi.</p>
+            </div>
+            <div class="row g-4" id="teachers-container"></div>
+        </div>
+    </section>
+
+    <!-- Footer / Aloqa -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="brand-logo-box"><i class="fas fa-graduation-cap"></i></div>
+                        <h5 class="text-white fw-bold mb-0" id="footer-name">Qo'shko'pir tumani IMI</h5>
+                    </div>
+                    <p class="small text-secondary mb-3" id="footer-agency"></p>
+                    <p class="small">
+                        Maqsadimiz — Qo'shko'pir tumani yoshlarining intellektual salohiyatini ro'yobga chiqarish, respublika va xalqaro fan olimpiadalarida g'olib bo'ladigan yetuk kadrlarni tayyorlash.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white fw-bold mb-3">Bog'lanish uchun</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i> <span id="footer-address"></span></li>
+                        <li class="mb-2"><i class="fas fa-phone-alt text-warning me-2"></i> <span id="footer-phone"></span></li>
+                        <li class="mb-2"><i class="fas fa-envelope text-warning me-2"></i> <span id="footer-email"></span></li>
+                        <li class="mb-2"><i class="fas fa-clock text-warning me-2"></i> Ish vaqti: Dushanba - Shanba (08:00 - 18:00)</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-white fw-bold mb-3">Tizim bo'limlari</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="admin.html" class="text-warning text-decoration-none fw-bold"><i class="fas fa-lock me-1"></i> Admin Panel (AdminLTE)</a></li>
+                        <li class="mb-2"><a href="#news" class="text-light text-decoration-none">Yangiliklar va e'lonlar</a></li>
+                        <li class="mb-2"><a href="#schedule" class="text-light text-decoration-none">Dars jadvallari</a></li>
+                        <li class="mb-2"><a href="https://piima.uz" target="_blank" class="text-light text-decoration-none">Agentlik rasmiy sayti (piima.uz)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap small text-secondary">
+                <div>&copy; 2026 Qo'shko'pir tumani ixtisoslashtirilgan maktab-internati. Barcha huquqlar himoyalangan.</div>
+                <div>GitHub Pages & Native AdminLTE asosida ishlab chiqildi</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Onlayn Ariza Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-user-graduate text-warning me-2"></i>Qabul uchun onlayn ariza</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="applicationForm">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Nomzod o'quvchining F.I.Sh</label>
+                            <input type="text" class="form-control" id="app-name" required placeholder="Masalan: Karimov Sardorbek">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Hozirgi o'qiyotgan maktabi</label>
+                            <input type="text" class="form-control" id="app-school" required placeholder="Masalan: Qo'shko'pir tumani 17-son maktab">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Topshirmoqchi bo'lgan sinf va yo'nalishi</label>
+                            <select class="form-select" id="app-grade">
+                                <option value="5-sinf (Aniq fanlar)">5-sinf (Aniq fanlar yo'nalishi)</option>
+                                <option value="7-sinf (Tabiiy fanlar)">7-sinf (Tabiiy fanlar yo'nalishi)</option>
+                                <option value="10-sinf (IT va Matematika)">10-sinf (IT va Matematika)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Ota-ona telefon raqami</label>
+                            <input type="tel" class="form-control" id="app-phone" required placeholder="+998 99 123-45-67">
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-gold px-4">Arizani yuborish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        let currentNewsFilter = 'Barchasi';
+
+        function renderFrontend() {
+            const db = getAppData();
+            const info = db.schoolInfo;
+
+            document.getElementById('top-address').innerText = info.address;
+            document.getElementById('top-phone').innerText = info.phone;
+            document.getElementById('top-telegram').href = info.telegram || '#';
+            document.getElementById('nav-school-name').innerText = info.shortName;
+            document.getElementById('hero-title').innerText = info.name;
+            document.getElementById('info-dorm').innerText = info.dormitoryCapacity || 250;
+            document.getElementById('info-rooms').innerText = info.classroomsCount || 24;
+            document.getElementById('info-director').innerText = info.director;
+            document.getElementById('info-reception').innerText = info.receptionDays;
+
+            document.getElementById('stat-students').innerText = info.studentsCount;
+            document.getElementById('stat-teachers').innerText = info.teachersCount;
+            document.getElementById('stat-olympiad').innerText = info.olympiadWinners;
+            document.getElementById('stat-grant').innerText = info.grantRate;
+
+            document.getElementById('footer-name').innerText = info.shortName;
+            document.getElementById('footer-agency').innerText = info.agency;
+            document.getElementById('footer-address').innerText = info.address;
+            document.getElementById('footer-phone').innerText = info.phone;
+            document.getElementById('footer-email').innerText = info.email;
+
+            renderNewsList(db.news);
+
+            // Dars jadvali
+            document.getElementById('schedule-container').innerHTML = db.schedule.map(s => `
+                <tr>
+                    <td class="fw-bold text-dark"><i class="fas fa-users text-primary me-2"></i>${s.grade}</td>
+                    <td><span class="badge bg-info text-dark">${s.shift}</span></td>
+                    <td>${s.room}</td>
+                    <td>${s.curator}</td>
+                    <td class="text-end">
+                        <a href="${s.link}" class="btn btn-sm btn-outline-primary"><i class="fas fa-download me-1"></i>Yuklab olish</a>
+                    </td>
+                </tr>
+            `).join('');
+
+            // O'qituvchilar
+            document.getElementById('teachers-container').innerHTML = db.teachers.map(t => `
+                <div class="col-sm-6 col-lg-3">
+                    <div class="teacher-card">
+                        <img src="${t.photo}" alt="${t.name}" class="teacher-avatar">
+                        <h6 class="fw-bold text-dark mb-1">${t.name}</h6>
+                        <p class="text-primary small fw-semibold mb-2">${t.subject}</p>
+                        <div class="small text-muted mb-2">${t.qualification || ''}</div>
+                        <span class="badge bg-light text-dark border">Ish tajribasi: ${t.experience}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderNewsList(newsArray) {
+            const filtered = currentNewsFilter === 'Barchasi'
+                ? newsArray
+                : newsArray.filter(n => n.category === currentNewsFilter);
+
+            document.getElementById('news-container').innerHTML = filtered.map(item => `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card news-card">
+                        <img src="${item.image}" class="news-img" alt="${item.title}">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary">${item.category}</span>
+                                <small class="text-muted"><i class="far fa-calendar-alt me-1"></i>${item.date}</small>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">${item.title}</h5>
+                            <p class="card-text text-muted small flex-grow-1">${item.content}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterNews(cat, btn) {
+            currentNewsFilter = cat;
+            document.querySelectorAll('#news .btn-group .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderNewsList(getAppData().news);
+        }
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const db = getAppData();
+            db.applications.unshift({
+                id: Date.now(),
+                studentName: document.getElementById('app-name').value,
+                school: document.getElementById('app-school').value,
+                grade: document.getElementById('app-grade').value,
+                phone: document.getElementById('app-phone').value,
+                status: 'Yangi',
+                date: new Date().toISOString().split('T')[0]
+            });
+            saveAppData(db);
+            alert("Hurmatli ota-ona! Arizangiz muvaffaqiyatli ro'yxatga olindi. Admin panel orqali ko'rib chiqiladi.");
+            this.reset();
+            bootstrap.Modal.getInstance(document.getElementById('applyModal')).hide();
+        });
+
+        renderFrontend();
+    </script>
+</body>
+</html>

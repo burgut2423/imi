@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qo'shko'pir tumani IMI | Native AdminLTE Boshqaruv Paneli</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<!-- LOGIN EKRANI -->
+<div id="login-screen" class="login-page" style="min-height: 100vh; background: #0a2540;">
+    <div class="login-box">
+        <div class="card card-outline card-warning shadow-lg">
+            <div class="card-header text-center">
+                <a href="index.html" class="h4"><b>Qo'shko'pir IMI</b> AdminLTE</a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Tizimga kirish uchun maxfiy parolni kiriting</p>
+                <form id="login-form">
+                    <div class="input-group mb-3">
+                        <input type="password" id="admin-pass" class="form-control" placeholder="Parol: admin123" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><span class="fas fa-lock"></span></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block font-weight-bold">Tizimga kirish</button>
+                </form>
+                <div class="mt-3 text-center">
+                    <small class="text-muted d-block mb-2">Standart parol: <code>admin123</code></small>
+                    <a href="index.html" class="text-sm"><i class="fas fa-arrow-left mr-1"></i> Asosiy veb-saytga qaytish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ASOSIY ADMINLTE WRAPPER -->
+<div id="admin-wrapper" class="wrapper d-none">
+    <!-- Top Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index.html" target="_blank" class="nav-link text-primary font-weight-bold">
+                    <i class="fas fa-external-link-alt mr-1"></i> Veb-saytni ko'rish (Live)
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto align-items-center">
+            <li class="nav-item mr-2">
+                <button onclick="exportDatabaseJSON()" class="btn btn-sm btn-outline-success" title="Bazani JSON fayl sifatida yuklab olish">
+                    <i class="fas fa-download mr-1"></i> JSON Eksport
+                </button>
+            </li>
+            <li class="nav-item">
+                <button onclick="logout()" class="btn btn-sm btn-danger"><i class="fas fa-sign-out-alt mr-1"></i> Chiqish</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Left Sidebar -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="admin.html" class="brand-link">
+            <i class="fas fa-school brand-image img-circle elevation-3 mt-1 ml-2 text-warning"></i>
+            <span class="brand-text font-weight-bold">Qo'shko'pir IMI</span>
+        </a>
+
+        <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+                <div class="image">
+                    <i class="fas fa-user-shield fa-2x text-info ml-2"></i>
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block font-weight-bold">AKT Administrator</a>
+                    <span class="badge badge-success">Online</span>
+                </div>
+            </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="switchTab('dashboard', this)">
+                            <i class="nav-icon fas fa-tachometer-alt"></i><p>Bosh sahifa (Dashboard)</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="switchTab('news-tab', this)">
+                            <i class="nav-icon fas fa-newspaper"></i><p>Yangiliklar boshqaruvi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="switchTab('teachers-tab', this)">
+                            <i class="nav-icon fas fa-chalkboard-teacher"></i><p>Pedagoglar tarkibi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="switchTab('schedule-tab', this)">
+                            <i class="nav-icon fas fa-calendar-alt"></i><p>Dars jadvallari</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="switchTab('apps-tab', this)">
+                            <i class="nav-icon fas fa-user-plus"></i>
+                            <p>Qabul arizalari <span class="badge badge-warning right" id="badge-apps">0</span></p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="switchTab('settings-tab', this)">
+                            <i class="nav-icon fas fa-cogs"></i><p>Maktab ma'lumotlari</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper p-4">
+
+        <!-- 1. DASHBOARD -->
+        <div id="dashboard" class="admin-section">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                <h3 class="m-0 font-weight-bold">Tizim umumiy ko'rsatkichlari</h3>
+                <button onclick="resetConfirm()" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-sync-alt mr-1"></i> Dastlabki ma'lumotlarni tiklash
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-info">
+                        <div class="inner"><h3 id="dash-students">0</h3><p>O'quvchilar soni</p></div>
+                        <div class="icon"><i class="fas fa-user-graduate"></i></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner"><h3 id="dash-news">0</h3><p>Nashr etilgan yangiliklar</p></div>
+                        <div class="icon"><i class="fas fa-newspaper"></i></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner"><h3 id="dash-apps">0</h3><p>Onlayn qabul arizalari</p></div>
+                        <div class="icon"><i class="fas fa-file-signature"></i></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner"><h3 id="dash-teachers">0</h3><p>Pedagoglar jamoasi</p></div>
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-outline card-primary mt-3">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bold"><i class="fas fa-info-circle text-primary mr-1"></i> GitHub Pages uchun Baza Sinxronizatsiyasi</h3>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2">Admin panelda kiritilgan barcha o'zgarishlar brauzer xotirasida (<code>LocalStorage</code>) darhol saqlanadi va <b>index.html</b> sahifasida real vaqtda ko'rinadi. Shuningdek, bazani JSON fayl ko'rinishida yuklab olishingiz yoki qayta yuklashingiz mumkin:</p>
+                    <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+                        <button onclick="exportDatabaseJSON()" class="btn btn-success mr-2"><i class="fas fa-file-export mr-1"></i> Bazani yuklab olish (backup.json)</button>
+                        <label class="btn btn-primary mb-0">
+                            <i class="fas fa-file-import mr-1"></i> JSON bazani yuklash <input type="file" id="import-json" accept=".json" hidden onchange="importDatabaseJSON(event)">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. YANGILIKLAR BOSHQARUVI -->
+        <div id="news-tab" class="admin-section d-none">
+            <div class="card card-primary">
+                <div class="card-header"><h3 class="card-title">Yangi yangilik yoki e'lon qo'shish</h3></div>
+                <form id="add-news-form">
+                    <div class="card-body row">
+                        <div class="form-group col-md-6">
+                            <label>Yangilik sarlavhasi</label>
+                            <input type="text" id="n-title" class="form-control" required placeholder="Sarlavhani kiriting...">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Bo'lim (Kategoriya)</label>
+                            <select id="n-cat" class="form-control">
+                                <option value="Yangiliklar">Yangiliklar</option>
+                                <option value="Yutuqlar">Yutuqlar</option>
+                                <option value="E'lon">E'lon</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Rasm URL manzili</label>
+                            <input type="url" id="n-img" class="form-control" value="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" required>
+                        </div>
+                        <div class="form-group col-12">
+                            <label>To'liq matni</label>
+                            <textarea id="n-content" class="form-control" rows="3" required placeholder="Yangilik mazmunini batafsil yozing..."></textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle mr-1"></i> Saytga nashr qilish</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3 class="card-title">Saytdagi barcha yangiliklar</h3></div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead><tr><th>Sana</th><th>Sarlavha</th><th>Kategoriya</th><th>Amal</th></tr></thead>
+                        <tbody id="admin-news-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. O'QITUVCHILAR BOSHQARUVI -->
+        <div id="teachers-tab" class="admin-section d-none">
+            <div class="card card-success">
+                <div class="card-header"><h3 class="card-title">Yangi pedagog qo'shish</h3></div>
+                <form id="add-teacher-form">
+                    <div class="card-body row">
+                        <div class="form-group col-md-3">
+                            <label>F.I.Sh</label>
+                            <input type="text" id="t-name" class="form-control" placeholder="Karimov Jamshid" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Mutaxassislik fani</label>
+                            <input type="text" id="t-subject" class="form-control" placeholder="Matematika fani o'qituvchisi" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Toifasi va sertifikati</label>
+                            <input type="text" id="t-qual" class="form-control" placeholder="Oliy toifa, Milliy sertifikat" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Ish staji</label>
+                            <input type="text" id="t-exp" class="form-control" placeholder="12 yil" required>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Fotosurat URL manzili</label>
+                            <input type="url" id="t-photo" class="form-control" value="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" required>
+                        </div>
+                        <div class="form-group col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-user-plus mr-1"></i> Ro'yxatga qo'shish</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-bordered table-striped">
+                        <thead><tr><th>F.I.Sh</th><th>Fani</th><th>Toifasi</th><th>Staji</th><th>Amal</th></tr></thead>
+                        <tbody id="admin-teachers-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. DARS JADVALI BOSHQARUVI -->
+        <div id="schedule-tab" class="admin-section d-none">
+            <div class="card card-info">
+                <div class="card-header"><h3 class="card-title">Sinf va dars jadvali qo'shish</h3></div>
+                <form id="add-schedule-form" class="card-body row">
+                    <div class="col-md-3 mb-2">
+                        <input type="text" id="s-grade" class="form-control" placeholder="Sinf (masalan: 8-A sinf)" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <input type="text" id="s-shift" class="form-control" placeholder="1-smena (08:30)" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <input type="text" id="s-room" class="form-control" placeholder="Xona (205-xona)" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <input type="text" id="s-curator" class="form-control" placeholder="Sinf rahbari" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <button type="submit" class="btn btn-info btn-block">Qo'shish</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead><tr><th>Sinf</th><th>Smena</th><th>Xona</th><th>Sinf rahbari</th><th>Amal</th></tr></thead>
+                        <tbody id="admin-schedule-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. QABUL ARIZALARI -->
+        <div id="apps-tab" class="admin-section d-none">
+            <div class="card">
+                <div class="card-header bg-warning"><h3 class="card-title font-weight-bold">Onlayn kelib tushgan arizalar ro'yxati</h3></div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-striped">
+                        <thead><tr><th>Sana</th><th>O'quvchi F.I.Sh</th><th>Maktabi</th><th>Tanlagan sinfi</th><th>Telefon</th><th>Holati</th><th>Amal</th></tr></thead>
+                        <tbody id="admin-apps-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. MAKTAB SOZLAMALARI -->
+        <div id="settings-tab" class="admin-section d-none">
+            <div class="card card-dark">
+                <div class="card-header"><h3 class="card-title">Maktab-internat pasporti va asosiy ko'rsatkichlari</h3></div>
+                <form id="settings-form" class="card-body row">
+                    <div class="form-group col-md-6">
+                        <label>Muassasa to'liq nomi</label>
+                        <input type="text" id="set-name" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Qisqa nomi (Navbar uchun)</label>
+                        <input type="text" id="set-short" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Maktab direktori F.I.Sh</label>
+                        <input type="text" id="set-director" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Qabul kunlari</label>
+                        <input type="text" id="set-reception" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Telefon raqami</label>
+                        <input type="text" id="set-phone" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Manzil</label>
+                        <input type="text" id="set-address" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Email</label>
+                        <input type="email" id="set-email" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Telegram kanal havolasi</label>
+                        <input type="url" id="set-telegram" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>O'quvchilar soni</label>
+                        <input type="number" id="set-students" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>O'qituvchilar soni</label>
+                        <input type="number" id="set-teachers" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Olimpiada g'oliblari</label>
+                        <input type="number" id="set-olympiad" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>OTMga kirish ko'rsatkichi (%)</label>
+                        <input type="text" id="set-grant" class="form-control" required>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save mr-1"></i> Barcha o'zgarishlarni saqlash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+    if (sessionStorage.getItem('qoshkopir_imi_admin') === 'true') {
+        showAdminPanel();
+    }
+
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (document.getElementById('admin-pass').value === 'admin123') {
+            sessionStorage.setItem('qoshkopir_imi_admin', 'true');
+            showAdminPanel();
+        } else {
+            alert("Parol noto'g'ri! Standart parol: admin123");
+        }
+    });
+
+    function logout() {
+        sessionStorage.removeItem('qoshkopir_imi_admin');
+        location.reload();
+    }
+
+    function showAdminPanel() {
+        document.getElementById('login-screen').classList.add('d-none');
+        document.getElementById('admin-wrapper').classList.remove('d-none');
+        loadAdminData();
+    }
+
+    function switchTab(tabId, el) {
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.add('d-none'));
+        document.getElementById(tabId).classList.remove('d-none');
+        document.querySelectorAll('.nav-sidebar .nav-link').forEach(l => l.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function loadAdminData() {
+        const db = getAppData();
+        const info = db.schoolInfo;
+
+        document.getElementById('dash-students').innerText = info.studentsCount;
+        document.getElementById('dash-news').innerText = db.news.length;
+        document.getElementById('dash-apps').innerText = db.applications.length;
+        document.getElementById('dash-teachers').innerText = db.teachers.length;
+        document.getElementById('badge-apps').innerText = db.applications.length;
+
+        // Yangiliklar
+        document.getElementById('admin-news-list').innerHTML = db.news.map(n => `
+            <tr>
+                <td>${n.date}</td>
+                <td><b>${n.title}</b></td>
+                <td><span class="badge badge-info">${n.category}</span></td>
+                <td>
+                    <button onclick="deleteNews(${n.id})" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i> O'chirish</button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Pedagoglar
+        document.getElementById('admin-teachers-list').innerHTML = db.teachers.map(t => `
+            <tr>
+                <td><b>${t.name}</b></td>
+                <td>${t.subject}</td>
+                <td>${t.qualification || '-'}</td>
+                <td>${t.experience}</td>
+                <td>
+                    <button onclick="deleteTeacher(${t.id})" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Dars jadvali
+        document.getElementById('admin-schedule-list').innerHTML = db.schedule.map(s => `
+            <tr>
+                <td><b>${s.grade}</b></td>
+                <td>${s.shift}</td>
+                <td>${s.room}</td>
+                <td>${s.curator}</td>
+                <td>
+                    <button onclick="deleteSchedule(${s.id})" class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Arizalar
+        document.getElementById('admin-apps-list').innerHTML = db.applications.map(a => `
+            <tr>
+                <td>${a.date}</td>
+                <td><b>${a.studentName}</b></td>
+                <td>${a.school || '-'}</td>
+                <td>${a.grade}</td>
+                <td>${a.phone}</td>
+                <td><span class="badge ${a.status === 'Tasdiqlandi' ? 'badge-success' : 'badge-warning'}">${a.status}</span></td>
+                <td>
+                    <button onclick="approveApp(${a.id})" class="btn btn-xs btn-success mr-1" title="Tasdiqlash"><i class="fas fa-check"></i></button>
+                    <button onclick="deleteApp(${a.id})" class="btn btn-xs btn-danger" title="O'chirish"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Sozlamalar
+        document.getElementById('set-name').value = info.name;
+        document.getElementById('set-short').value = info.shortName;
+        document.getElementById('set-director').value = info.director;
+        document.getElementById('set-reception').value = info.receptionDays;
+        document.getElementById('set-phone').value = info.phone;
+        document.getElementById('set-address').value = info.address;
+        document.getElementById('set-email').value = info.email;
+        document.getElementById('set-telegram').value = info.telegram;
+        document.getElementById('set-students').value = info.studentsCount;
+        document.getElementById('set-teachers').value = info.teachersCount;
+        document.getElementById('set-olympiad').value = info.olympiadWinners;
+        document.getElementById('set-grant').value = info.grantRate;
+    }
+
+    // Yangilik qo'shish va o'chirish
+    document.getElementById('add-news-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const db = getAppData();
+        db.news.unshift({
+            id: Date.now(),
+            title: document.getElementById('n-title').value,
+            category: document.getElementById('n-cat').value,
+            image: document.getElementById('n-img').value,
+            content: document.getElementById('n-content').value,
+            date: new Date().toISOString().split('T')[0],
+            views: 1
+        });
+        saveAppData(db);
+        this.reset();
+        loadAdminData();
+        alert("Yangilik muvaffaqiyatli qo'shildi!");
+    });
+
+    function deleteNews(id) {
+        const db = getAppData();
+        db.news = db.news.filter(n => n.id !== id);
+        saveAppData(db);
+        loadAdminData();
+    }
+
+    // O'qituvchi qo'shish va o'chirish
+    document.getElementById('add-teacher-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const db = getAppData();
+        db.teachers.push({
+            id: Date.now(),
+            name: document.getElementById('t-name').value,
+            subject: document.getElementById('t-subject').value,
+            qualification: document.getElementById('t-qual').value,
+            experience: document.getElementById('t-exp').value,
+            photo: document.getElementById('t-photo').value
+        });
+        saveAppData(db);
+        this.reset();
+        loadAdminData();
+        alert("Pedagog ro'yxatga qo'shildi!");
+    });
+
+    function deleteTeacher(id) {
+        const db = getAppData();
+        db.teachers = db.teachers.filter(t => t.id !== id);
+        saveAppData(db);
+        loadAdminData();
+    }
+
+    // Dars jadvali qo'shish va o'chirish
+    document.getElementById('add-schedule-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const db = getAppData();
+        db.schedule.push({
+            id: Date.now(),
+            grade: document.getElementById('s-grade').value,
+            shift: document.getElementById('s-shift').value,
+            room: document.getElementById('s-room').value,
+            curator: document.getElementById('s-curator').value,
+            link: "#"
+        });
+        saveAppData(db);
+        this.reset();
+        loadAdminData();
+    });
+
+    function deleteSchedule(id) {
+        const db = getAppData();
+        db.schedule = db.schedule.filter(s => s.id !== id);
+        saveAppData(db);
+        loadAdminData();
+    }
+
+    // Arizalarni tasdiqlash va o'chirish
+    function approveApp(id) {
+        const db = getAppData();
+        const item = db.applications.find(a => a.id === id);
+        if (item) item.status = "Tasdiqlandi";
+        saveAppData(db);
+        loadAdminData();
+    }
+
+    function deleteApp(id) {
+        const db = getAppData();
+        db.applications = db.applications.filter(a => a.id !== id);
+        saveAppData(db);
+        loadAdminData();
+    }
+
+    // Sozlamalarni saqlash
+    document.getElementById('settings-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const db = getAppData();
+        db.schoolInfo.name = document.getElementById('set-name').value;
+        db.schoolInfo.shortName = document.getElementById('set-short').value;
+        db.schoolInfo.director = document.getElementById('set-director').value;
+        db.schoolInfo.receptionDays = document.getElementById('set-reception').value;
+        db.schoolInfo.phone = document.getElementById('set-phone').value;
+        db.schoolInfo.address = document.getElementById('set-address').value;
+        db.schoolInfo.email = document.getElementById('set-email').value;
+        db.schoolInfo.telegram = document.getElementById('set-telegram').value;
+        db.schoolInfo.studentsCount = parseInt(document.getElementById('set-students').value, 10) || 0;
+        db.schoolInfo.teachersCount = parseInt(document.getElementById('set-teachers').value, 10) || 0;
+        db.schoolInfo.olympiadWinners = parseInt(document.getElementById('set-olympiad').value, 10) || 0;
+        db.schoolInfo.grantRate = document.getElementById('set-grant').value;
+        saveAppData(db);
+        loadAdminData();
+        alert("Barcha sozlamalar saqlandi va asosiy saytda yangilandi!");
+    });
+
+    // JSON Export / Import
+    function exportDatabaseJSON() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(getAppData(), null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", "qoshkopir_imi_db.json");
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+    }
+
+    function importDatabaseJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                saveAppData(imported);
+                loadAdminData();
+                alert("JSON baza muvaffaqiyatli yuklandi!");
+            } catch (err) {
+                alert("Xatolik: Noto'g'ri JSON fayl!");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function resetConfirm() {
+        if (confirm("Haqiqatan ham barcha ma'lumotlarni dastlabki holatga qaytarmoqchimisiz?")) {
+            resetToDefaultData();
+            loadAdminData();
+        }
+    }
+</script>
+</body>
+</html>
